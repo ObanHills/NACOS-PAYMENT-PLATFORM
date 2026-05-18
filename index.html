@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>NACOS Payment System - PLASU Chapter</title>
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#10b981">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="NACOS PLASU">
+    <link rel="apple-touch-icon" href="nacos-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="careers.css?v=5">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="plasu-logo.png" alt="PLASU Logo" class="nav-logo nav-logo--plasu">
+            <img src="nacos-logo.png" alt="NACOS Logo" class="nav-logo nav-logo--nacos">
+            <h1>NACOS PLASU</h1>
+        </div>
+        <!-- Right-side controls: always visible (bell + theme toggle + hamburger) -->
+        <div class="nav-controls">
+            <!-- Notification Bell (logged-in users only) -->
+            <button id="nav-notifications" class="notif-bell" style="display:none;" onclick="openNotifications()" aria-label="Notifications">
+                <i data-lucide="bell"></i>
+                <span class="notif-badge" id="notif-badge" style="display:none;">0</span>
+            </button>
+            <!-- Dark / Light Mode Toggle -->
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode" title="Switch to dark mode">
+                <i data-lucide="sun"></i>
+            </button>
+            <!-- Hamburger — visible only on mobile -->
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Nav links — collapses into drawer on mobile -->
+        <div class="nav-links">
+            <a href="#" data-page="home">Home</a>
+            <a href="#" data-page="login" id="nav-login">Login</a>
+            <a href="#" data-page="register" id="nav-register">Register</a>
+            <a href="#" data-page="admin" id="nav-admin" style="display:none;">Admin Portal</a>
+            <a href="#" data-page="dashboard" id="nav-dashboard" style="display:none;">My Dashboard</a>
+            <a href="#" id="nav-logout" style="display:none;">Logout</a>
+        </div>
+        </nav>
+
+        <!-- Home Page -->
+        <div id="page-home" class="page active">
+            <section class="hero">
+                <div class="hero-logos">
+                    <img src="plasu-logo.png" alt="PLASU Logo" class="hero-logo">
+                    <img src="nacos-logo.png" alt="NACOS Logo" class="hero-logo">
+                </div>
+                <div class="badge" style="display: inline-block; padding: 0.5rem 1rem; border-radius: 50px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: var(--primary-dark); font-weight: 600; font-size: 0.85rem; margin-bottom: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase;">Official Portal</div>
+                <h2>Payment Portal for NACOS PLASU</h2>
+                <p>Experience seamless, secure, and transparent dues processing for the Nigeria Association of Computing Students, Plateau State University Bokkos Chapter.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="navigateTo('login')">Access Dashboard</button>
+                    <button class="btn btn-outline" onclick="navigateTo('register')">Register Now</button>
+                </div>
+            </section>
+            
+            <section class="stats">
+                <div class="mission-card">
+                    <div class="mission-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=700&q=80&auto=format&fit=crop" alt="Secure payments" class="mission-img" loading="lazy">
+                        <div class="mission-img-overlay"></div>
+                        <div class="mission-icon-badge">
+                            <i data-lucide="shield-check"></i>
+                        </div>
+                    </div>
+                    <div class="mission-body">
+                        <h3>Secure</h3>
+                        <p>Bank-grade security protects every transaction. Your dues and personal data are encrypted and safe at all times.</p>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80&auto=format&fit=crop" alt="Fast digital receipts" class="mission-img" loading="lazy">
+                        <div class="mission-img-overlay"></div>
+                        <div class="mission-icon-badge">
+                            <i data-lucide="zap"></i>
+                        </div>
+                    </div>
+                    <div class="mission-body">
+                        <h3>Fast</h3>
+                        <p>Submit your payment proof in seconds and receive an instant digital receipt — no queues, no paperwork, no delays.</p>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80&auto=format&fit=crop" alt="Transparent records" class="mission-img" loading="lazy">
+                        <div class="mission-img-overlay"></div>
+                        <div class="mission-icon-badge">
+                            <i data-lucide="bar-chart-2"></i>
+                        </div>
+                    </div>
+                    <div class="mission-body">
+                        <h3>Transparent</h3>
+                        <p>Every payment is logged and verifiable. Students and admins share a clear, real-time view of all dues records.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ethics & Principles Carousel -->
+            <section class="ethics-section">
+                <div class="ethics-header">
+                    <span class="ethics-eyebrow">
+                        <i data-lucide="shield-check"></i> NACOS Code of Ethics
+                    </span>
+                    <h3>Principles That Guide Computing Students</h3>
+                    <p>As future technologists, we are bound by a shared responsibility to build, use, and advocate for technology that is ethical, inclusive, and beneficial to society.</p>
+                </div>
+
+                <div class="carousel" id="ethics-carousel">
+                    <div class="carousel-track" id="carousel-track">
+
+                        <div class="carousel-slide">
+                            <div class="carousel-slide-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80&auto=format&fit=crop" alt="Integrity in Technology" class="carousel-slide-img" loading="lazy">
+                                <div class="carousel-slide-img-overlay"></div>
+                            </div>
+                            <div class="carousel-slide-body">
+                                <div class="carousel-icon"><i data-lucide="shield"></i></div>
+                                <h4>Integrity in Technology</h4>
+                                <p>Computing professionals must act with honesty and integrity in all technical work. Writing clean, honest code, citing sources, and never misrepresenting capabilities are foundational to a trustworthy tech ecosystem.</p>
+                                <span class="carousel-tag">ACM Code of Ethics · Principle 1</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="carousel-slide-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80&auto=format&fit=crop" alt="Inclusive Design" class="carousel-slide-img" loading="lazy">
+                                <div class="carousel-slide-img-overlay"></div>
+                            </div>
+                            <div class="carousel-slide-body">
+                                <div class="carousel-icon"><i data-lucide="users"></i></div>
+                                <h4>Inclusive Design</h4>
+                                <p>Technology must serve everyone. Computing students are called to design systems that are accessible, culturally sensitive, and free from bias — ensuring no group is excluded or harmed by the software we build.</p>
+                                <span class="carousel-tag">Digital Inclusion · IEEE Ethics</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="carousel-slide-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&q=80&auto=format&fit=crop" alt="Privacy and Data Protection" class="carousel-slide-img" loading="lazy">
+                                <div class="carousel-slide-img-overlay"></div>
+                            </div>
+                            <div class="carousel-slide-body">
+                                <div class="carousel-icon"><i data-lucide="lock"></i></div>
+                                <h4>Privacy &amp; Data Protection</h4>
+                                <p>Respect for personal data is non-negotiable. Every system we build must collect only what is necessary, protect it rigorously, and give users meaningful control over their own information.</p>
+                                <span class="carousel-tag">GDPR Principles · Data Ethics</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="carousel-slide-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80&auto=format&fit=crop" alt="Fairness and Algorithmic Justice" class="carousel-slide-img" loading="lazy">
+                                <div class="carousel-slide-img-overlay"></div>
+                            </div>
+                            <div class="carousel-slide-body">
+                                <div class="carousel-icon"><i data-lucide="scale"></i></div>
+                                <h4>Fairness &amp; Algorithmic Justice</h4>
+                                <p>Algorithms shape lives. We must audit our systems for bias, ensure fair outcomes across demographics, and refuse to build tools that discriminate — whether intentionally or through negligent design.</p>
+                                <span class="carousel-tag">Responsible AI · Fairness in ML</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="carousel-slide-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80&auto=format&fit=crop" alt="Technology for Public Good" class="carousel-slide-img" loading="lazy">
+                                <div class="carousel-slide-img-overlay"></div>
+                            </div>
+                            <div class="carousel-slide-body">
+                                <div class="carousel-icon"><i data-lucide="globe"></i></div>
+                                <h4>Technology for Public Good</h4>
+                                <p>The highest purpose of computing is to improve human life. NACOS members are encouraged to apply their skills to solve real community problems — from healthcare to education to governance.</p>
+                                <span class="carousel-tag">NACOS Mission · SDG Goals</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="carousel-slide-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop" alt="Transparency and Accountability" class="carousel-slide-img" loading="lazy">
+                                <div class="carousel-slide-img-overlay"></div>
+                            </div>
+                            <div class="carousel-slide-body">
+                                <div class="carousel-icon"><i data-lucide="eye"></i></div>
+                                <h4>Transparency &amp; Accountability</h4>
+                                <p>Systems that affect people must be explainable. Computing professionals should document their work, disclose limitations, and take responsibility for the consequences of the technology they deploy.</p>
+                                <span class="carousel-tag">Explainable AI · Open Source Ethics</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="carousel-slide-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80&auto=format&fit=crop" alt="Sustainable Computing" class="carousel-slide-img" loading="lazy">
+                                <div class="carousel-slide-img-overlay"></div>
+                            </div>
+                            <div class="carousel-slide-body">
+                                <div class="carousel-icon"><i data-lucide="leaf"></i></div>
+                                <h4>Sustainable Computing</h4>
+                                <p>Technology has an environmental footprint. Efficient code, responsible hardware choices, and awareness of energy consumption are part of the ethical responsibility of every computing professional.</p>
+                                <span class="carousel-tag">Green Computing · UN SDG 13</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="carousel-slide-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80&auto=format&fit=crop" alt="Continuous Learning" class="carousel-slide-img" loading="lazy">
+                                <div class="carousel-slide-img-overlay"></div>
+                            </div>
+                            <div class="carousel-slide-body">
+                                <div class="carousel-icon"><i data-lucide="graduation-cap"></i></div>
+                                <h4>Continuous Learning</h4>
+                                <p>The tech landscape evolves rapidly. Ethical computing requires staying informed — about new threats, emerging standards, and the societal impact of technologies like AI, blockchain, and biometrics.</p>
+                                <span class="carousel-tag">Professional Development · Lifelong Learning</span>
+                            </div>
+                        </div>
+
+                    </div><!-- end carousel-track -->
+
+                    <!-- Controls -->
+                    <button class="carousel-btn carousel-btn--prev" id="carousel-prev" aria-label="Previous">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn carousel-btn--next" id="carousel-next" aria-label="Next">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+
+                    <!-- Dots -->
+                    <div class="carousel-dots" id="carousel-dots"></div>
+                </div>
+            </section>
+
+            <!-- Career Paths Section -->
+            <section class="careers-section">
+                <div class="careers-header">
+                    <span class="ethics-eyebrow">
+                        <i data-lucide="briefcase"></i> Career Pathways
+                    </span>
+                    <h3>Where Computing Takes You</h3>
+                    <p>A computing degree opens doors to some of the most impactful, well-paid, and rapidly growing careers in the world. Explore the major paths available to NACOS members.</p>
+                </div>
+
+                <div class="careers-grid">
+
+                    <!-- 1. Software Engineering -->
+                    <div class="career-card">
+                        <div class="career-card-header">
+                            <div class="career-icon career-icon--blue">
+                                <i data-lucide="code-2"></i>
+                            </div>
+                            <div>
+                                <h4>Software Engineering</h4>
+                                <span class="career-demand career-demand--high">Very High Demand</span>
+                            </div>
+                        </div>
+                        <p class="career-summary">The backbone of the digital world. Software engineers design, build, test, and maintain the applications and systems that power everything from mobile apps to enterprise platforms.</p>
+                        <div class="career-details">
+                            <div class="career-detail-block">
+                                <strong>What You'll Do</strong>
+                                <p>Write and review code, architect systems, collaborate with product teams, debug production issues, and continuously ship features. You'll work across the full stack or specialise in frontend, backend, mobile, or embedded systems.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Skills to Build</strong>
+                                <ul>
+                                    <li>Data structures &amp; algorithms</li>
+                                    <li>Version control (Git)</li>
+                                    <li>At least one language deeply (Python, Java, JavaScript, C++)</li>
+                                    <li>System design &amp; architecture</li>
+                                    <li>Testing &amp; CI/CD pipelines</li>
+                                </ul>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Career Progression</strong>
+                                <p>Junior Developer → Mid-level Engineer → Senior Engineer → Staff/Principal Engineer → Engineering Manager / CTO</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Top Employers in Nigeria &amp; Globally</strong>
+                                <p>Flutterwave, Paystack, Andela, Google, Microsoft, Meta, Amazon, startups across fintech, healthtech, and edtech.</p>
+                            </div>
+                            <div class="career-stat-row">
+                                <div class="career-stat"><span>₦2M–₦15M+</span><small>Annual salary range (Nigeria)</small></div>
+                                <div class="career-stat"><span>$80K–$200K+</span><small>Global salary range</small></div>
+                                <div class="career-stat"><span>25%</span><small>Job growth by 2032 (BLS)</small></div>
+                            </div>
+                        </div>
+                        <button class="career-toggle-btn" onclick="toggleCareer(this)">
+                            <i data-lucide="chevron-down"></i> Read More
+                        </button>
+                    </div>
+
+                    <!-- 2. Cybersecurity -->
+                    <div class="career-card">
+                        <div class="career-card-header">
+                            <div class="career-icon career-icon--red">
+                                <i data-lucide="shield-alert"></i>
+                            </div>
+                            <div>
+                                <h4>Cybersecurity</h4>
+                                <span class="career-demand career-demand--critical">Critical Shortage</span>
+                            </div>
+                        </div>
+                        <p class="career-summary">Defenders of the digital frontier. Cybersecurity professionals protect organisations from data breaches, ransomware, and nation-state attacks in an increasingly hostile threat landscape.</p>
+                        <div class="career-details">
+                            <div class="career-detail-block">
+                                <strong>What You'll Do</strong>
+                                <p>Conduct penetration testing, monitor security operations centres (SOC), respond to incidents, design secure architectures, perform vulnerability assessments, and train staff on security awareness.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Skills to Build</strong>
+                                <ul>
+                                    <li>Networking fundamentals (TCP/IP, DNS, firewalls)</li>
+                                    <li>Linux &amp; command-line proficiency</li>
+                                    <li>Ethical hacking &amp; penetration testing</li>
+                                    <li>SIEM tools (Splunk, IBM QRadar)</li>
+                                    <li>Cryptography &amp; PKI</li>
+                                </ul>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Certifications</strong>
+                                <p>CompTIA Security+, CEH (Certified Ethical Hacker), OSCP, CISSP, CISM — these significantly boost employability and salary.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Specialisations</strong>
+                                <p>Penetration Tester, SOC Analyst, Cloud Security Engineer, Digital Forensics Analyst, Malware Analyst, GRC (Governance, Risk &amp; Compliance) Specialist.</p>
+                            </div>
+                            <div class="career-stat-row">
+                                <div class="career-stat"><span>3.5M</span><small>Global unfilled positions (2025)</small></div>
+                                <div class="career-stat"><span>$95K–$180K</span><small>Global salary range</small></div>
+                                <div class="career-stat"><span>32%</span><small>Job growth by 2032 (BLS)</small></div>
+                            </div>
+                        </div>
+                        <button class="career-toggle-btn" onclick="toggleCareer(this)">
+                            <i data-lucide="chevron-down"></i> Read More
+                        </button>
+                    </div>
+
+                    <!-- 3. Data Science & AI -->
+                    <div class="career-card">
+                        <div class="career-card-header">
+                            <div class="career-icon career-icon--purple">
+                                <i data-lucide="brain"></i>
+                            </div>
+                            <div>
+                                <h4>Data Science &amp; AI</h4>
+                                <span class="career-demand career-demand--high">Very High Demand</span>
+                            </div>
+                        </div>
+                        <p class="career-summary">The science of turning raw data into decisions. Data scientists and AI engineers build the models that power recommendation engines, fraud detection, medical diagnosis, and autonomous systems.</p>
+                        <div class="career-details">
+                            <div class="career-detail-block">
+                                <strong>What You'll Do</strong>
+                                <p>Collect and clean datasets, build and train machine learning models, deploy AI systems to production, interpret results for business stakeholders, and research new algorithms and architectures.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Skills to Build</strong>
+                                <ul>
+                                    <li>Python (NumPy, Pandas, Scikit-learn, PyTorch/TensorFlow)</li>
+                                    <li>Statistics &amp; probability</li>
+                                    <li>SQL &amp; data wrangling</li>
+                                    <li>Machine learning fundamentals</li>
+                                    <li>Data visualisation (Matplotlib, Tableau, Power BI)</li>
+                                </ul>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Specialisations</strong>
+                                <p>Machine Learning Engineer, NLP Engineer, Computer Vision Engineer, Data Analyst, Business Intelligence Developer, AI Research Scientist, MLOps Engineer.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Nigeria Opportunity</strong>
+                                <p>Banks, telecoms (MTN, Airtel), and government agencies are actively hiring data professionals. The Central Bank of Nigeria's digital finance push has created significant demand for data-driven roles.</p>
+                            </div>
+                            <div class="career-stat-row">
+                                <div class="career-stat"><span>#1</span><small>Fastest growing job (LinkedIn 2024)</small></div>
+                                <div class="career-stat"><span>$100K–$220K</span><small>Global salary range</small></div>
+                                <div class="career-stat"><span>36%</span><small>Job growth by 2033 (BLS)</small></div>
+                            </div>
+                        </div>
+                        <button class="career-toggle-btn" onclick="toggleCareer(this)">
+                            <i data-lucide="chevron-down"></i> Read More
+                        </button>
+                    </div>
+
+                    <!-- 4. Cloud Computing & DevOps -->
+                    <div class="career-card">
+                        <div class="career-card-header">
+                            <div class="career-icon career-icon--cyan">
+                                <i data-lucide="cloud"></i>
+                            </div>
+                            <div>
+                                <h4>Cloud Computing &amp; DevOps</h4>
+                                <span class="career-demand career-demand--high">Very High Demand</span>
+                            </div>
+                        </div>
+                        <p class="career-summary">The infrastructure layer of the modern internet. Cloud and DevOps engineers build, automate, and scale the systems that keep applications running reliably for millions of users.</p>
+                        <div class="career-details">
+                            <div class="career-detail-block">
+                                <strong>What You'll Do</strong>
+                                <p>Provision cloud infrastructure, automate deployments with CI/CD pipelines, manage containerised workloads, monitor system health, optimise costs, and ensure high availability and disaster recovery.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Skills to Build</strong>
+                                <ul>
+                                    <li>AWS, Azure, or Google Cloud Platform</li>
+                                    <li>Docker &amp; Kubernetes</li>
+                                    <li>Infrastructure as Code (Terraform, Ansible)</li>
+                                    <li>Linux administration</li>
+                                    <li>CI/CD (GitHub Actions, Jenkins)</li>
+                                </ul>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Certifications</strong>
+                                <p>AWS Solutions Architect, Google Cloud Professional, Azure Administrator, Certified Kubernetes Administrator (CKA) — each certification can add $10K–$30K to your salary.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Specialisations</strong>
+                                <p>Cloud Architect, Site Reliability Engineer (SRE), Platform Engineer, DevSecOps Engineer, FinOps Analyst.</p>
+                            </div>
+                            <div class="career-stat-row">
+                                <div class="career-stat"><span>$110K–$200K</span><small>Global salary range</small></div>
+                                <div class="career-stat"><span>28%</span><small>Job growth by 2032</small></div>
+                                <div class="career-stat"><span>$679B</span><small>Global cloud market 2024</small></div>
+                            </div>
+                        </div>
+                        <button class="career-toggle-btn" onclick="toggleCareer(this)">
+                            <i data-lucide="chevron-down"></i> Read More
+                        </button>
+                    </div>
+
+                    <!-- 5. Product Management -->
+                    <div class="career-card">
+                        <div class="career-card-header">
+                            <div class="career-icon career-icon--orange">
+                                <i data-lucide="layout-dashboard"></i>
+                            </div>
+                            <div>
+                                <h4>Product Management</h4>
+                                <span class="career-demand career-demand--growing">Growing Fast</span>
+                            </div>
+                        </div>
+                        <p class="career-summary">The bridge between technology and business. Product managers define what gets built, why, and for whom — translating user needs and business goals into product roadmaps that engineering teams execute.</p>
+                        <div class="career-details">
+                            <div class="career-detail-block">
+                                <strong>What You'll Do</strong>
+                                <p>Conduct user research, write product requirements, prioritise features, work with designers and engineers, analyse metrics, run A/B tests, and communicate strategy to stakeholders and executives.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Skills to Build</strong>
+                                <ul>
+                                    <li>User research &amp; empathy mapping</li>
+                                    <li>Data analysis (SQL, Google Analytics)</li>
+                                    <li>Agile &amp; Scrum methodologies</li>
+                                    <li>Wireframing (Figma, Balsamiq)</li>
+                                    <li>Stakeholder communication &amp; storytelling</li>
+                                </ul>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Why Computing Students Excel Here</strong>
+                                <p>Technical literacy gives computing graduates a massive edge — you can speak the language of engineers, evaluate feasibility, and earn the trust of development teams in ways non-technical PMs cannot.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Career Progression</strong>
+                                <p>Associate PM → Product Manager → Senior PM → Group PM → VP of Product → Chief Product Officer (CPO)</p>
+                            </div>
+                            <div class="career-stat-row">
+                                <div class="career-stat"><span>$95K–$185K</span><small>Global salary range</small></div>
+                                <div class="career-stat"><span>₦3M–₦20M</span><small>Nigeria salary range</small></div>
+                                <div class="career-stat"><span>19%</span><small>Job growth by 2032</small></div>
+                            </div>
+                        </div>
+                        <button class="career-toggle-btn" onclick="toggleCareer(this)">
+                            <i data-lucide="chevron-down"></i> Read More
+                        </button>
+                    </div>
+
+                    <!-- 6. UI/UX Design -->
+                    <div class="career-card">
+                        <div class="career-card-header">
+                            <div class="career-icon career-icon--pink">
+                                <i data-lucide="pen-tool"></i>
+                            </div>
+                            <div>
+                                <h4>UI/UX Design</h4>
+                                <span class="career-demand career-demand--growing">Growing Fast</span>
+                            </div>
+                        </div>
+                        <p class="career-summary">The art and science of human-computer interaction. UX designers ensure that digital products are intuitive, accessible, and delightful — turning complex systems into seamless experiences.</p>
+                        <div class="career-details">
+                            <div class="career-detail-block">
+                                <strong>What You'll Do</strong>
+                                <p>Conduct usability research, create user personas and journey maps, design wireframes and prototypes, run usability tests, collaborate with developers on implementation, and iterate based on user feedback.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Skills to Build</strong>
+                                <ul>
+                                    <li>Figma (industry standard design tool)</li>
+                                    <li>User research methods (interviews, surveys, usability testing)</li>
+                                    <li>Information architecture</li>
+                                    <li>Accessibility standards (WCAG)</li>
+                                    <li>Basic HTML/CSS (to communicate with developers)</li>
+                                </ul>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Specialisations</strong>
+                                <p>UX Researcher, UI Designer, Interaction Designer, Design Systems Engineer, Motion Designer, Accessibility Specialist, Voice/Conversational UI Designer.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Portfolio is Everything</strong>
+                                <p>Unlike most tech roles, UX hiring is portfolio-driven. Start building case studies now — redesign existing apps, solve real problems in your community, and document your process thoroughly.</p>
+                            </div>
+                            <div class="career-stat-row">
+                                <div class="career-stat"><span>$75K–$160K</span><small>Global salary range</small></div>
+                                <div class="career-stat"><span>23%</span><small>Job growth by 2032</small></div>
+                                <div class="career-stat"><span>$1.1T</span><small>ROI of good UX (Forrester)</small></div>
+                            </div>
+                        </div>
+                        <button class="career-toggle-btn" onclick="toggleCareer(this)">
+                            <i data-lucide="chevron-down"></i> Read More
+                        </button>
+                    </div>
+
+                    <!-- 7. Database Administration & Engineering -->
+                    <div class="career-card">
+                        <div class="career-card-header">
+                            <div class="career-icon career-icon--green">
+                                <i data-lucide="database"></i>
+                            </div>
+                            <div>
+                                <h4>Database Engineering</h4>
+                                <span class="career-demand career-demand--stable">Stable &amp; Essential</span>
+                            </div>
+                        </div>
+                        <p class="career-summary">Every organisation runs on data. Database engineers and administrators design, optimise, and protect the data stores that power banking systems, hospitals, e-commerce platforms, and government services.</p>
+                        <div class="career-details">
+                            <div class="career-detail-block">
+                                <strong>What You'll Do</strong>
+                                <p>Design database schemas, write complex queries, optimise slow queries, manage backups and recovery, implement replication and sharding, enforce data security, and migrate legacy systems.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Skills to Build</strong>
+                                <ul>
+                                    <li>SQL (PostgreSQL, MySQL, Oracle)</li>
+                                    <li>NoSQL (MongoDB, Redis, Cassandra)</li>
+                                    <li>Query optimisation &amp; indexing</li>
+                                    <li>Data modelling &amp; normalisation</li>
+                                    <li>Backup, replication &amp; disaster recovery</li>
+                                </ul>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Modern Evolution</strong>
+                                <p>The role is evolving into Data Engineering — building ETL pipelines, data lakes, and real-time streaming systems using tools like Apache Kafka, Spark, dbt, and Snowflake.</p>
+                            </div>
+                            <div class="career-stat-row">
+                                <div class="career-stat"><span>$85K–$160K</span><small>Global salary range</small></div>
+                                <div class="career-stat"><span>9%</span><small>Job growth by 2032</small></div>
+                                <div class="career-stat"><span>Every org</span><small>Needs data management</small></div>
+                            </div>
+                        </div>
+                        <button class="career-toggle-btn" onclick="toggleCareer(this)">
+                            <i data-lucide="chevron-down"></i> Read More
+                        </button>
+                    </div>
+
+                    <!-- 8. Blockchain & Web3 -->
+                    <div class="career-card">
+                        <div class="career-card-header">
+                            <div class="career-icon career-icon--yellow">
+                                <i data-lucide="link"></i>
+                            </div>
+                            <div>
+                                <h4>Blockchain &amp; Web3</h4>
+                                <span class="career-demand career-demand--emerging">Emerging</span>
+                            </div>
+                        </div>
+                        <p class="career-summary">The decentralised internet. Blockchain developers build trustless systems — from DeFi protocols and NFT platforms to supply chain solutions and digital identity systems that don't rely on central authorities.</p>
+                        <div class="career-details">
+                            <div class="career-detail-block">
+                                <strong>What You'll Do</strong>
+                                <p>Write and audit smart contracts, build decentralised applications (dApps), integrate wallets and blockchain APIs, design tokenomics, and contribute to open-source Web3 protocols.</p>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Key Skills to Build</strong>
+                                <ul>
+                                    <li>Solidity (Ethereum smart contracts)</li>
+                                    <li>Web3.js / Ethers.js</li>
+                                    <li>Cryptography fundamentals</li>
+                                    <li>Hardhat / Foundry (development frameworks)</li>
+                                    <li>DeFi protocols &amp; tokenomics</li>
+                                </ul>
+                            </div>
+                            <div class="career-detail-block">
+                                <strong>Nigeria Context</strong>
+                                <p>Nigeria is one of the highest crypto-adopting nations globally. Local projects like Korapay, Busha, and Yellow Card are building blockchain-adjacent infrastructure. The CBN's eNaira is also creating demand for blockchain expertise in government.</p>
+                            </div>
+                            <div class="career-stat-row">
+                                <div class="career-stat"><span>$120K–$250K</span><small>Global salary range</small></div>
+                                <div class="career-stat"><span>$67B</span><small>Blockchain market by 2026</small></div>
+                                <div class="career-stat"><span>Top 3</span><small>Nigeria in Africa crypto adoption</small></div>
+                            </div>
+                        </div>
+                        <button class="career-toggle-btn" onclick="toggleCareer(this)">
+                            <i data-lucide="chevron-down"></i> Read More
+                        </button>
+                    </div>
+
+                </div><!-- end careers-grid -->
+            </section>
+
+        </div>
+
+        <!-- Login Page -->
+        <div id="page-login" class="page">
+            <div class="auth-form">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label>Matric Number / Staff ID</label>
+                        <input type="text" id="login-matric" required placeholder="Enter your matric number">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="login-password" required placeholder="Enter your password">
+                            <button type="button" class="toggle-password-btn" onclick="togglePassword('login-password', this)" aria-label="Show password">
+                                <i data-lucide="eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                </form>
+                <p class="auth-link">Don't have an account? <a href="#" onclick="navigateTo('register')">Register here</a></p>
+                <p class="auth-link"><a href="#" onclick="navigateTo('forgot-password')">Forgot your password?</a></p>
+            </div>
+        </div>
+
+        <!-- Forgot Password Page -->
+        <div id="page-forgot-password" class="page">
+            <div class="auth-form">
+                <div class="auth-form-icon">
+                    <i data-lucide="key-round"></i>
+                </div>
+                <h2>Reset Password</h2>
+                <p style="text-align:center;color:var(--text-muted);margin-bottom:1.5rem;font-size:0.95rem;">Enter your matric number and we'll help you set a new password.</p>
+                <form id="forgot-password-form">
+                    <div class="form-group">
+                        <label>Matric Number</label>
+                        <input type="text" id="forgot-matric" required placeholder="Enter your matric number">
+                    </div>
+                    <div id="forgot-security-section" style="display:none;">
+                        <div class="security-hint-box">
+                            <i data-lucide="shield-check"></i>
+                            <span id="forgot-hint-text"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="forgot-new-password" placeholder="Enter new password">
+                                <button type="button" class="toggle-password-btn" onclick="togglePassword('forgot-new-password', this)" aria-label="Show password">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="forgot-confirm-password" placeholder="Confirm new password">
+                                <button type="button" class="toggle-password-btn" onclick="togglePassword('forgot-confirm-password', this)" aria-label="Show password">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;" id="forgot-submit-btn">Find My Account</button>
+                </form>
+                <p class="auth-link"><a href="#" onclick="navigateTo('login')">← Back to Login</a></p>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="page-register" class="page">
+            <div class="reg-card">
+                <!-- Card header with logos + title -->
+                <div class="reg-card-header">
+                    <div class="reg-card-logos">
+                        <img src="plasu-logo.png" alt="PLASU Logo" class="reg-card-logo">
+                        <img src="nacos-logo.png" alt="NACOS Logo" class="reg-card-logo reg-card-logo--nacos">
+                    </div>
+                    <div class="reg-card-title">
+                        <h2>Student Registration</h2>
+                        <p>NACOS PLASU &nbsp;&middot;&nbsp; Plateau State University Bokkos</p>
+                    </div>
+                </div>
+
+                <form id="register-form">
+                    <!-- Row 1 -->
+                    <div class="reg-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="reg-name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="reg-email" required placeholder="e.g. john@gmail.com">
+                        </div>
+                    </div>
+                    <!-- Row 2 -->
+                    <div class="reg-row">
+                        <div class="form-group">
+                            <label>Matric Number</label>
+                            <input type="text" id="reg-matric" required placeholder="e.g. CSC/2021/001">
+                        </div>
+                        <div class="form-group">
+                            <label>Level</label>
+                            <select id="reg-level" required>
+                                <option value="">Select Level</option>
+                                <option value="100">100 Level</option>
+                                <option value="200">200 Level</option>
+                                <option value="300">300 Level</option>
+                                <option value="400">400 Level</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Row 3 -->
+                    <div class="reg-row">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="reg-gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>State of Origin</label>
+                            <select id="reg-state" required>
+                                <option value="">Select State</option>
+                                <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option>
+                                <option>Anambra</option><option>Bauchi</option><option>Bayelsa</option>
+                                <option>Benue</option><option>Borno</option><option>Cross River</option>
+                                <option>Delta</option><option>Ebonyi</option><option>Edo</option>
+                                <option>Ekiti</option><option>Enugu</option><option>FCT - Abuja</option>
+                                <option>Gombe</option><option>Imo</option><option>Jigawa</option>
+                                <option>Kaduna</option><option>Kano</option><option>Katsina</option>
+                                <option>Kebbi</option><option>Kogi</option><option>Kwara</option>
+                                <option>Lagos</option><option>Nasarawa</option><option>Niger</option>
+                                <option>Ogun</option><option>Ondo</option><option>Osun</option>
+                                <option>Oyo</option><option>Plateau</option><option>Rivers</option>
+                                <option>Sokoto</option><option>Taraba</option><option>Yobe</option>
+                                <option>Zamfara</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Row 4 -->
+                    <div class="reg-row">
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="reg-password" required placeholder="Create a password">
+                                <button type="button" class="toggle-password-btn" onclick="togglePassword('reg-password', this)" aria-label="Show password">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="reg-confirm-password" required placeholder="Confirm your password">
+                                <button type="button" class="toggle-password-btn" onclick="togglePassword('reg-confirm-password', this)" aria-label="Show password">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;">
+                        Create Account
+                    </button>
+                </form>
+
+                <p class="auth-link" style="text-align:center;margin-top:1rem;">
+                    Already have an account? <a href="#" onclick="navigateTo('login')">Login here</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="page-admin" class="page">
+
+            <!-- Page header -->
+            <div class="page-header">
+                <div class="page-header-left">
+                    <h2>Admin Portal</h2>
+                    <p class="page-subtitle">NACOS PLASU &nbsp;·&nbsp; Plateau State University Bokkos</p>
+                </div>
+            </div>
+
+            <!-- Summary Charts -->
+            <div class="admin-charts-row">
+                <div class="chart-card">
+                    <h4><i data-lucide="bar-chart-2"></i> Overview</h4>
+                    <div class="chart-stats-row">
+                        <div class="chart-stat">
+                            <span class="chart-stat-value" id="stat-total-students">0</span>
+                            <span class="chart-stat-label">Total Students</span>
+                        </div>
+                        <div class="chart-stat">
+                            <span class="chart-stat-value" id="stat-total-paid">₦0</span>
+                            <span class="chart-stat-label">Total Paid</span>
+                        </div>
+                        <div class="chart-stat">
+                            <span class="chart-stat-value" id="stat-total-pending">0</span>
+                            <span class="chart-stat-label">Pending Verification</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-card chart-card--canvas">
+                    <h4><i data-lucide="pie-chart"></i> Payment Status</h4>
+                    <canvas id="chart-payment-status" height="180"></canvas>
+                </div>
+                <div class="chart-card chart-card--canvas">
+                    <h4><i data-lucide="users"></i> Students by Level</h4>
+                    <canvas id="chart-students-level" height="180"></canvas>
+                </div>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="transactions">
+                    <i data-lucide="receipt"></i> Transactions
+                </button>
+                <button class="tab-btn" data-tab="settings">
+                    <i data-lucide="settings"></i> Settings
+                </button>
+                <button class="tab-btn" data-tab="students">
+                    <i data-lucide="users"></i> Students
+                </button>
+                <button class="tab-btn" data-tab="data">
+                    <i data-lucide="database"></i> Data
+                </button>
+                <button class="tab-btn" data-tab="reports">
+                    <i data-lucide="bar-chart-3"></i> Reports
+                </button>
+                <button class="tab-btn" data-tab="sessions">
+                    <i data-lucide="calendar"></i> Sessions
+                </button>
+                <button class="tab-btn" data-tab="announcements">
+                    <i data-lucide="megaphone"></i> Announcements
+                </button>
+                <button class="tab-btn" data-tab="audit">
+                    <i data-lucide="scroll-text"></i> Audit Log
+                </button>
+            </div>
+            
+            <!-- Transactions Tab -->
+            <div id="admin-transactions-tab" class="tab-content active">
+                <div class="admin-header">
+                    <h3>Payment Approvals</h3>
+                    <div style="display:flex;gap:0.5rem;align-items:center;">
+                        <span id="bulk-selected-count" class="bulk-count" style="display:none;">0 selected</span>
+                        <button class="btn btn-success" id="bulk-approve-btn" style="display:none;" onclick="bulkApprove()">
+                            <i data-lucide="check-check"></i> Approve Selected
+                        </button>
+                        <button class="btn btn-danger" id="bulk-reject-btn" style="display:none;" onclick="bulkReject()">
+                            <i data-lucide="x"></i> Reject Selected
+                        </button>
+                    </div>
+                </div>
+                <div id="admin-transactions-list"></div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div id="admin-settings-tab" class="tab-content">
+                <div class="admin-header">
+                    <h3>Payment Configuration</h3>
+                    <button class="btn btn-outline" onclick="openProfileModal()">
+                        <i data-lucide="user-pen"></i> Update My Biodata
+                    </button>
+                </div>
+                <div class="settings-card">
+                    <form id="settings-form">
+                        <div class="settings-section-title">
+                            <i data-lucide="landmark"></i> Bank Details
+                        </div>
+                        <div class="settings-grid">
+                            <div class="form-group">
+                                <label>Bank Name</label>
+                                <input type="text" id="set-bank-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Account Name</label>
+                                <input type="text" id="set-account-name" required>
+                            </div>
+                            <div class="form-group" style="grid-column:1/-1">
+                                <label>Account Number</label>
+                                <input type="text" id="set-account-number" required>
+                            </div>
+                        </div>
+
+                        <div class="settings-section-title" style="margin-top:1.25rem;">
+                            <i data-lucide="coins"></i> Dues Per Level (₦)
+                        </div>
+                        <div class="settings-grid">
+                            <div class="form-group">
+                                <label>100 Level</label>
+                                <input type="number" id="set-100l" required>
+                            </div>
+                            <div class="form-group">
+                                <label>200 Level</label>
+                                <input type="number" id="set-200l" required>
+                            </div>
+                            <div class="form-group">
+                                <label>300 Level</label>
+                                <input type="number" id="set-300l" required>
+                            </div>
+                            <div class="form-group">
+                                <label>400 Level</label>
+                                <input type="number" id="set-400l" required>
+                            </div>
+                        </div>
+
+                        <div class="settings-section-title" style="margin-top:1.25rem;">
+                            <i data-lucide="pen-line"></i> Admin Signature
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Signature Image (Appears on Receipts)</label>
+                            <input type="file" id="set-signature" accept="image/*">
+                            <div id="set-signature-preview" class="sig-preview-box" style="display:none;">
+                                <img id="sig-img-preview" src="" alt="Signature Preview" class="sig-img">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3">
+                            <i data-lucide="save"></i> Save Settings
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Students Tab -->
+            <div id="admin-students-tab" class="tab-content">
+                <div class="admin-header">
+                    <h3>Registered Students</h3>
+                    <button class="btn btn-primary" onclick="downloadAllStudents()">
+                        <i data-lucide="download"></i> Download All
+                    </button>
+                </div>
+                <div id="admin-students-list"></div>
+            </div>
+
+            <!-- Data Management Tab -->
+            <div id="admin-data-tab" class="tab-content">
+
+                <!-- Search & Select Student -->
+                <div class="dm-section">
+                    <div class="dm-section-header">
+                        <i data-lucide="search"></i>
+                        <h3>Find a Student Record</h3>
+                    </div>
+                    <div class="dm-search-row">
+                        <input type="text" id="dm-search-input"
+                               placeholder="Search by name or matric number…"
+                               oninput="dmSearchStudents(this.value)">
+                        <button class="btn btn-outline" onclick="dmSearchStudents(document.getElementById('dm-search-input').value)">
+                            Search
+                        </button>
+                    </div>
+                    <div id="dm-search-results"></div>
+                </div>
+
+                <!-- Edit Student Biodata -->
+                <div class="dm-section" id="dm-edit-section" style="display:none;">
+                    <div class="dm-section-header">
+                        <i data-lucide="user-pen"></i>
+                        <h3>Edit Student Biodata</h3>
+                        <span id="dm-editing-name" class="dm-badge"></span>
+                    </div>
+                    <form id="dm-edit-form" class="dm-edit-grid">
+                        <input type="hidden" id="dm-edit-id">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="dm-edit-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Matric Number</label>
+                            <input type="text" id="dm-edit-matric" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Level</label>
+                            <select id="dm-edit-level">
+                                <option value="100">100 Level</option>
+                                <option value="200">200 Level</option>
+                                <option value="300">300 Level</option>
+                                <option value="400">400 Level</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="dm-edit-gender">
+                                <option value="">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>State of Origin</label>
+                            <input type="text" id="dm-edit-state">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="dm-edit-email">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="dm-edit-phone">
+                        </div>
+                    </form>
+                    <div class="dm-action-row">
+                        <button class="btn btn-primary" onclick="dmSaveEdit()">
+                            <i data-lucide="save"></i> Save Changes
+                        </button>
+                        <button class="btn btn-outline" onclick="dmCancelEdit()">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Manage Transactions for Selected Student -->
+                <div class="dm-section" id="dm-tx-section" style="display:none;">
+                    <div class="dm-section-header">
+                        <i data-lucide="receipt"></i>
+                        <h3>Transaction Records</h3>
+                        <span id="dm-tx-student-name" class="dm-badge"></span>
+                    </div>
+                    <div id="dm-tx-list"></div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="dm-section dm-danger-zone" id="dm-danger-section" style="display:none;">
+                    <div class="dm-section-header">
+                        <i data-lucide="triangle-alert"></i>
+                        <h3>Danger Zone</h3>
+                    </div>
+                    <p class="dm-danger-desc">
+                        These actions are permanent and cannot be undone. Proceed with caution.
+                    </p>
+                    <div class="dm-danger-actions">
+                        <div class="dm-danger-card">
+                            <div>
+                                <strong>Clear All Transactions</strong>
+                                <p>Remove all payment records for this student. Their account remains active.</p>
+                            </div>
+                            <button class="btn btn-danger" id="dm-clear-tx-btn" onclick="dmClearStudentTransactions()">
+                                <i data-lucide="trash-2"></i> Clear Transactions
+                            </button>
+                        </div>
+                        <div class="dm-danger-card">
+                            <div>
+                                <strong>Delete Student Account</strong>
+                                <p>Permanently remove this student and all their records from the system.</p>
+                            </div>
+                            <button class="btn btn-danger" id="dm-delete-student-btn" onclick="dmDeleteStudent()">
+                                <i data-lucide="user-x"></i> Delete Student
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bulk Operations -->
+                <div class="dm-section">
+                    <div class="dm-section-header">
+                        <i data-lucide="database"></i>
+                        <h3>Bulk Operations</h3>
+                    </div>
+                    <div class="dm-bulk-grid">
+                        <div class="dm-bulk-card">
+                            <i data-lucide="download-cloud"></i>
+                            <strong>Export All Data</strong>
+                            <p>Download a full JSON backup of all students, transactions and settings.</p>
+                            <button class="btn btn-outline" onclick="dmExportAllData()">Export Backup</button>
+                        </div>
+                        <div class="dm-bulk-card">
+                            <i data-lucide="upload-cloud"></i>
+                            <strong>Import Data</strong>
+                            <p>Restore from a previously exported JSON backup file.</p>
+                            <input type="file" id="dm-import-file" accept=".json" style="display:none"
+                                   onchange="dmImportData(this)">
+                            <button class="btn btn-outline" onclick="document.getElementById('dm-import-file').click()">
+                                Import Backup
+                            </button>
+                        </div>
+                        <div class="dm-bulk-card dm-bulk-card--danger">
+                            <i data-lucide="trash"></i>
+                            <strong>Clear All Transactions</strong>
+                            <p>Remove every payment record from the system. Student accounts are kept.</p>
+                            <button class="btn btn-danger" onclick="dmClearAllTransactions()">Clear All</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end data tab -->
+
+            <!-- Reports Tab -->
+            <div id="admin-reports-tab" class="tab-content">
+                <div class="admin-header">
+                    <h3>Financial Reports</h3>
+                    <div style="display:flex;gap:0.5rem;">
+                        <select id="report-session-filter" class="report-filter-select" onchange="loadReports()">
+                            <option value="all">All Sessions</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="exportReportPDF()">
+                            <i data-lucide="file-down"></i> Export PDF
+                        </button>
+                        <button class="btn btn-outline" onclick="exportReportExcel()">
+                            <i data-lucide="table"></i> Export Excel
+                        </button>
+                    </div>
+                </div>
+                <div id="admin-reports-content"></div>
+            </div>
+
+            <!-- Sessions Tab -->
+            <div id="admin-sessions-tab" class="tab-content">
+                <div class="admin-header">
+                    <h3>Academic Sessions</h3>
+                    <button class="btn btn-primary" onclick="openNewSessionModal()">
+                        <i data-lucide="plus"></i> New Session
+                    </button>
+                </div>
+                <div id="admin-sessions-list"></div>
+            </div>
+
+            <!-- Announcements Tab -->
+            <div id="admin-announcements-tab" class="tab-content">
+                <div class="admin-header">
+                    <h3>Announcements</h3>
+                    <button class="btn btn-primary" onclick="openAnnouncementModal()">
+                        <i data-lucide="plus"></i> New Announcement
+                    </button>
+                </div>
+                <div id="admin-announcements-list"></div>
+            </div>
+
+            <!-- Audit Log Tab -->
+            <div id="admin-audit-tab" class="tab-content">
+                <div class="admin-header">
+                    <h3>Audit Log</h3>
+                    <button class="btn btn-outline" onclick="exportAuditLog()">
+                        <i data-lucide="download"></i> Export Log
+                    </button>
+                </div>
+                <div id="admin-audit-list"></div>
+            </div>
+
+        </div><!-- end page-admin -->
+
+        <!-- Receipt Verification Page (public) -->
+        <div id="page-verify" class="page">
+            <div class="auth-form" style="max-width:520px;">
+                <div class="auth-form-icon"><i data-lucide="shield-check"></i></div>
+                <h2>Verify Receipt</h2>
+                <p style="text-align:center;color:var(--text-muted);font-size:0.875rem;margin-bottom:1.25rem;">
+                    Enter a receipt number to confirm its authenticity.
+                </p>
+                <div class="form-group">
+                    <label>Receipt Number</label>
+                    <input type="text" id="verify-receipt-input" placeholder="e.g. RCT-1234567890" style="text-transform:uppercase;">
+                </div>
+                <button class="btn btn-primary" style="width:100%;" onclick="verifyReceipt()">
+                    <i data-lucide="search"></i> Verify
+                </button>
+                <div id="verify-result" style="margin-top:1.25rem;"></div>
+                <p class="auth-link"><a href="#" onclick="navigateTo('home')">← Back to Home</a></p>
+            </div>
+        </div>
+
+        <!-- Student Dashboard -->
+        <div id="page-dashboard" class="page">
+            <h2>My Dashboard</h2>
+            <div class="dashboard-grid">
+                
+                <!-- Profile & Dues Info -->
+                <div class="dashboard-column">
+                    <div class="dashboard-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--gray-200); padding-bottom: 0.5rem;">
+                            <h3 style="margin-bottom: 0; border: none; padding: 0;">My Profile</h3>
+                            <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="openProfileModal()">Update Biodata</button>
+                        </div>
+                        <div id="profile-info"></div>
+                    </div>
+                    
+                    <div class="dashboard-card mt-3">
+                        <h3>Payment Instructions</h3>
+                        <div id="payment-instructions" class="payment-info-box">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Submission & History -->
+                <div class="dashboard-column">
+                    <div class="dashboard-card" id="submit-payment-section">
+                        <h3>Submit Payment</h3>
+                        <form id="submit-payment-form">
+                            <div class="form-group">
+                                <label>Payment For (Level)</label>
+                                <select id="pay-level" required>
+                                    <option value="">Select Level</option>
+                                    <option value="100">100 Level</option>
+                                    <option value="200">200 Level</option>
+                                    <option value="300">300 Level</option>
+                                    <option value="400">400 Level</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount Payable (₦)</label>
+                                <input type="number" id="pay-amount" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Upload Payment Proof (Receipt/Screenshot)</label>
+                                <input type="file" id="pay-proof" accept="image/*" required>
+                                <div id="pay-proof-preview" style="margin-top: 1rem; display: none;">
+                                    <img id="proof-img-preview" src="" alt="Proof Preview" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--glass-border);">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Date of Payment</label>
+                                <input type="date" id="pay-date" required>
+                            </div>
+                            <button type="submit" class="btn btn-success" style="width: 100%;">Submit for Approval</button>
+                        </form>
+                    </div>
+
+                    <div class="dashboard-card mt-3">
+                        <h3>My Transactions</h3>
+                        <div id="student-transactions-list"></div>
+                    </div>
+
+                    <!-- Announcements for student -->
+                    <div class="dashboard-card mt-3" id="student-announcements-card" style="display:none;">
+                        <h3><i data-lucide="megaphone" style="width:15px;height:15px;vertical-align:middle;margin-right:0.4rem;"></i> Announcements</h3>
+                        <div id="student-announcements-list"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Notifications Drawer -->
+    <div id="notif-drawer" class="notif-drawer">
+        <!-- Drawer header -->
+        <div class="notif-drawer-header">
+            <div class="notif-drawer-title">
+                <div class="notif-drawer-icon">
+                    <i data-lucide="bell-ring"></i>
+                </div>
+                <div>
+                    <h3>Notifications</h3>
+                    <span class="notif-drawer-sub" id="notif-unread-label">No new notifications</span>
+                </div>
+            </div>
+            <div class="notif-drawer-actions">
+                <button class="notif-action-btn" onclick="markAllNotificationsRead()" title="Mark all as read">
+                    <i data-lucide="check-check"></i>
+                </button>
+                <button class="notif-action-btn notif-close-btn" onclick="closeNotifications()" aria-label="Close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Scan line decoration -->
+        <div class="notif-scan-line"></div>
+
+        <!-- Notification list -->
+        <div id="notif-list" class="notif-list">
+            <!-- Populated by JS -->
+        </div>
+
+        <!-- Footer -->
+        <div class="notif-drawer-footer">
+            <span class="notif-footer-text">
+                <i data-lucide="shield-check"></i> Secured · NACOS PLASU Portal
+            </span>
+        </div>
+    </div>
+    <div id="notif-overlay" class="notif-overlay" onclick="closeNotifications()"></div>
+
+    <!-- Generic Modal (Glassmorphism) -->
+    <div id="app-modal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Receipt Print Area (Hidden normally) -->
+    <div id="receipt-print-area"></div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+
+            <!-- Brand column -->
+            <div class="footer-col footer-col--brand">
+                <div class="footer-brand">
+                    <img src="plasu-logo.png" alt="PLASU Logo" class="footer-logo">
+                    <img src="nacos-logo.png" alt="NACOS Logo" class="footer-logo footer-logo--nacos">
+                    <span class="footer-brand-name">NACOS PLASU</span>
+                </div>
+                <p class="footer-tagline">
+                    Official dues payment portal for the Nigeria Association of Computing Students,
+                    Plateau State University Bokkos Chapter.
+                </p>
+                <div class="footer-socials">
+                    <a href="https://github.com/ObanHills/NACOS-PAYMENT-PLATFORM" target="_blank" rel="noopener" aria-label="GitHub">
+                        <i data-lucide="github"></i>
+                    </a>
+                    <a href="mailto:info@plasu.edu.ng" aria-label="Email">
+                        <i data-lucide="mail"></i>
+                    </a>
+                    <a href="https://plasu.edu.ng" target="_blank" rel="noopener" aria-label="PLASU Website">
+                        <i data-lucide="globe"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-col">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="#" onclick="navigateTo('home')"><i data-lucide="home"></i> Home</a></li>
+                    <li><a href="#" onclick="navigateTo('login')"><i data-lucide="log-in"></i> Login</a></li>
+                    <li><a href="#" onclick="navigateTo('register')"><i data-lucide="user-plus"></i> Register</a></li>
+                    <li><a href="#" onclick="navigateTo('forgot-password')"><i data-lucide="key-round"></i> Reset Password</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="footer-col">
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="https://nacos.org.ng" target="_blank" rel="noopener"><i data-lucide="external-link"></i> NACOS National</a></li>
+                    <li><a href="https://plasu.edu.ng" target="_blank" rel="noopener"><i data-lucide="external-link"></i> PLASU Official Site</a></li>
+                    <li><a href="https://plasu.edu.ng/student-portal" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Student Portal</a></li>
+                    <li><a href="https://github.com/ObanHills/NACOS-PAYMENT-PLATFORM" target="_blank" rel="noopener"><i data-lucide="code-2"></i> Source Code</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-col">
+                <h5>Contact</h5>
+                <ul class="footer-contact-list">
+                    <li>
+                        <i data-lucide="map-pin"></i>
+                        <span>Diram Village, Bokkos LGA,<br>Plateau State, Nigeria</span>
+                    </li>
+                    <li>
+                        <i data-lucide="mail"></i>
+                        <a href="mailto:info@plasu.edu.ng">info@plasu.edu.ng</a>
+                    </li>
+                    <li>
+                        <i data-lucide="shield-check"></i>
+                        <span>Secured &amp; Verified Portal</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="footer-bottom">
+            <p>&copy; <span id="footer-year"></span> NACOS PLASU Chapter. All rights reserved.</p>
+            <p class="footer-bottom-right">
+                Built with <i data-lucide="heart" style="width:12px;height:12px;color:#ef4444;display:inline;vertical-align:middle;"></i>
+                for computing students &nbsp;·&nbsp;
+                <a href="https://github.com/ObanHills/NACOS-PAYMENT-PLATFORM" target="_blank" rel="noopener">View on GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.441.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="emailjs-config.js"></script>
+    <script src="app.js?v=6"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+/* ==================== CAREER PATHS SECTION ==================== */
+
+.careers-section {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-200);
+}
+
+.careers-header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.careers-header h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.3px;
+}
+
+.careers-header p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* 2-column grid of career cards */
+.careers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 860px) {
+    .careers-grid { grid-template-columns: 1fr; }
+}
+
+/* Individual career card */
+.career-card {
+    background: white;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--glass-shadow);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: var(--transition);
+}
+
+.career-card:hover {
+    border-color: rgba(16,185,129,0.3);
+    box-shadow: 0 8px 24px rgba(16,185,129,0.08);
+    transform: translateY(-2px);
+}
+
+/* Card header: icon + title + demand badge */
+.career-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+/* Icon circle — colour variants */
+.career-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.career-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.75;
+}
+
+.career-icon--blue   { background: rgba(59,130,246,0.1);  color: #3b82f6; }
+.career-icon--red    { background: rgba(239,68,68,0.1);   color: #ef4444; }
+.career-icon--purple { background: rgba(139,92,246,0.1);  color: #8b5cf6; }
+.career-icon--cyan   { background: rgba(6,182,212,0.1);   color: #06b6d4; }
+.career-icon--orange { background: rgba(249,115,22,0.1);  color: #f97316; }
+.career-icon--pink   { background: rgba(236,72,153,0.1);  color: #ec4899; }
+.career-icon--green  { background: rgba(16,185,129,0.1);  color: #10b981; }
+.career-icon--yellow { background: rgba(234,179,8,0.1);   color: #eab308; }
+
+.career-card-header h4 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0 0 0.2rem;
+}
+
+/* Demand badge */
+.career-demand {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.55rem;
+    border-radius: 50px;
+}
+
+.career-demand--high     { background: rgba(16,185,129,0.1);  color: #059669; border: 1px solid rgba(16,185,129,0.25); }
+.career-demand--critical { background: rgba(239,68,68,0.1);   color: #dc2626; border: 1px solid rgba(239,68,68,0.25); }
+.career-demand--growing  { background: rgba(59,130,246,0.1);  color: #2563eb; border: 1px solid rgba(59,130,246,0.25); }
+.career-demand--stable   { background: rgba(100,116,139,0.1); color: #475569; border: 1px solid rgba(100,116,139,0.25); }
+.career-demand--emerging { background: rgba(234,179,8,0.1);   color: #b45309; border: 1px solid rgba(234,179,8,0.25); }
+
+/* Summary paragraph — always visible */
+.career-summary {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Expandable details — hidden by default */
+.career-details {
+    display: none;
+    flex-direction: column;
+    gap: 0.85rem;
+    border-top: 1px solid var(--gray-200);
+    padding-top: 0.85rem;
+    animation: fadeUp 0.3s ease forwards;
+}
+
+.career-card.expanded .career-details {
+    display: flex;
+}
+
+.career-detail-block strong {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+}
+
+.career-detail-block p {
+    font-size: 0.845rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+}
+
+.career-detail-block ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.career-detail-block ul li {
+    font-size: 0.845rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Stats row inside expanded card */
+.career-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.career-stat {
+    background: var(--bg-subtle);
+    border-radius: 8px;
+    padding: 0.6rem 0.5rem;
+    text-align: center;
+    border: 1px solid var(--gray-200);
+}
+
+.career-stat span {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    line-height: 1.2;
+}
+
+.career-stat small {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+    display: block;
+    margin-top: 0.15rem;
+}
+
+/* Read More / Show Less toggle button */
+.career-toggle-btn {
+    background: none;
+    border: 1px solid var(--gray-200);
+    border-radius: 50px;
+    padding: 0.4rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: var(--transition);
+    align-self: flex-start;
+    font-family: inherit;
+}
+
+.career-toggle-btn svg {
+    width: 13px;
+    height: 13px;
+    transition: transform 0.3s ease;
+}
+
+.career-toggle-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-dark);
+    background: rgba(16,185,129,0.05);
+}
+
+.career-card.expanded .career-toggle-btn svg {
+    transform: rotate(180deg);
+}
+
+.career-card.expanded .career-toggle-btn {
+    border-color: var(--primary-color);
+    color: var(--primary-dark);
+}
+
+/* Dark mode */
+body.dark-mode .careers-section {
+    border-top-color: #334155;
+}
+
+body.dark-mode .career-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark-mode .career-card:hover {
+    border-color: rgba(16,185,129,0.4);
+}
+
+body.dark-mode .career-details {
+    border-top-color: #334155;
+}
+
+body.dark-mode .career-stat {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+body.dark-mode .career-toggle-btn {
+    border-color: #334155;
+    color: var(--text-muted);
+}
+
+body.dark-mode .career-toggle-btn:hover {
+    border-color: var(--primary-color);
+    background: rgba(16,185,129,0.08);
+}

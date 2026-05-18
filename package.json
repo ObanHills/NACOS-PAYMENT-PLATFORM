@@ -1,0 +1,13 @@
+{
+  "name": "nacos-plasu-portal",
+  "version": "1.0.0",
+  "description": "NACOS PLASU Official Dues Payment Portal",
+  "author": "NACOS PLASU Chapter",
+  "license": "MIT",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "devDependencies": {
+    "serve": "^14.2.3"
+  }
+}

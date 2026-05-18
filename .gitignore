@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.log
+nacos-b64.txt
+plasu-b64.txt
+.DS_Store
+.vs/
+*.vsidx
+*.wsuo
+*.slnx
+slnx.sqlite

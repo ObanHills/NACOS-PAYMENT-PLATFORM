@@ -1,0 +1,16 @@
+{
+  "name": "NACOS PLASU Payment Portal",
+  "short_name": "NACOS PLASU",
+  "description": "Official dues payment portal for NACOS Plateau State University Bokkos Chapter",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "nacos-logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "nacos-logo.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "categories": ["education", "finance"],
+  "lang": "en"
+}
